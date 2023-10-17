@@ -8,13 +8,18 @@ public abstract class Convolutor {
     protected int n, m, k, kHalf;
     protected int[][] matrix, convolutionMatrix, resultMatrix;
 
-    public Convolutor(Integer inputFileNr) throws FileNotFoundException {
+    public Convolutor(Integer inputFileNr) {
         this.readFromFile("input/data" + inputFileNr + ".txt");
     }
 
-    private void readFromFile(String fileName) throws FileNotFoundException {
+    private void readFromFile(String fileName) {
         File file = new File(fileName);
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         readSizes(scanner);
         readMatrix(scanner);

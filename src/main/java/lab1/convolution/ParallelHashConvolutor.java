@@ -1,8 +1,8 @@
 package lab1.convolution;
 
-public class ParallelOnLinesConvolutor extends Convolutor {
+public class ParallelHashConvolutor extends Convolutor {
     private final Integer threadsNr;
-    public ParallelOnLinesConvolutor(Integer inputFileNr, Integer threadsNr) {
+    public ParallelHashConvolutor(Integer inputFileNr, Integer threadsNr) {
         super(inputFileNr);
         this.threadsNr = threadsNr;
     }
@@ -12,7 +12,7 @@ public class ParallelOnLinesConvolutor extends Convolutor {
         Thread[] threads = new Thread[threadsNr];
 
         for (int i = 0; i < threadsNr; ++i) {
-            threads[i] = new OnLinesThread(i * n / threadsNr, (i + 1) * n / threadsNr);
+            threads[i] = new ParallelHashConvolutor.HashThread(i * n / threadsNr, (i + 1) * n / threadsNr);
             threads[i].start();
         }
         for (int i = 0; i < threadsNr; ++i) {
@@ -26,10 +26,10 @@ public class ParallelOnLinesConvolutor extends Convolutor {
         return resultMatrix;
     }
 
-    public class OnLinesThread extends Thread {
+    public class HashThread extends Thread {
         private final int startLine, endLine;
 
-        public OnLinesThread(int startLine, int endLine) {
+        public HashThread(int startLine, int endLine) {
             this.startLine = startLine;
             this.endLine = endLine;
         }

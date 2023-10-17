@@ -1,9 +1,7 @@
 package lab1.convolution;
 
-import java.io.FileNotFoundException;
-
 public class SequentialConvolutor extends Convolutor {
-    public SequentialConvolutor(Integer inputFileNr) throws FileNotFoundException {
+    public SequentialConvolutor(Integer inputFileNr) {
         super(inputFileNr);
     }
 
