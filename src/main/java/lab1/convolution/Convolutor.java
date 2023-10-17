@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public abstract class Convolutor {
-    protected int n, m, k;
-    protected int[][] matrix, convolutionMatrix;
+    protected int n, m, k, kHalf;
+    protected int[][] matrix, convolutionMatrix, resultMatrix;
 
     public Convolutor(Integer inputFileNr) throws FileNotFoundException {
         this.readFromFile("input/data" + inputFileNr + ".txt");
@@ -19,6 +19,7 @@ public abstract class Convolutor {
         readSizes(scanner);
         readMatrix(scanner);
         readConvolutionalMatrix(scanner);
+        resultMatrix = new int[n][m];
 
         scanner.close();
     }
@@ -27,13 +28,14 @@ public abstract class Convolutor {
         n = scanner.nextInt();
         m = scanner.nextInt();
         k = scanner.nextInt();
+        kHalf = k / 2;
     }
 
     private void readMatrix(Scanner scanner) {
         matrix = new int[n + k - 1][m + k - 1];
-        for(int i=0, k2 = k / 2; i < n; i++) {
+        for(int i=0; i < n; i++) {
             for(int j=0; j < m; j++) {
-                matrix[i + k2][j + k2] = scanner.nextInt();
+                matrix[i + kHalf][j + kHalf] = scanner.nextInt();
             }
         }
     }
@@ -48,4 +50,8 @@ public abstract class Convolutor {
     }
 
     public abstract int[][] convolute();
+
+    protected void convoluteUnit(int i, int j, int di, int dj) {
+        resultMatrix[i][j] += matrix[i + di][j + dj] * convolutionMatrix[di][dj];
+    }
 }
