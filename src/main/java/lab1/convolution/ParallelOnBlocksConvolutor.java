@@ -11,8 +11,8 @@ public class ParallelOnBlocksConvolutor extends Convolutor {
     public int[][] convolute() {
         Thread[] threads = new Thread[threadsNr];
 
-        for (int i = 0; i < threadsNr; ++i) {
-            threads[i] = new ParallelOnBlocksConvolutor.OnBlocksThread(i * n / threadsNr, (i + 1) * n / threadsNr);
+        for (int i = 0; i < threadsNr; ++i) {       /// important: n * m * threadsNr must not exceed Integer.MAX_VALUE
+            threads[i] = new ParallelOnBlocksConvolutor.OnBlocksThread(i * n * m / threadsNr, (i + 1) * n * m / threadsNr);
             threads[i].start();
         }
         for (int i = 0; i < threadsNr; ++i) {
@@ -27,24 +27,28 @@ public class ParallelOnBlocksConvolutor extends Convolutor {
     }
 
     public class OnBlocksThread extends Thread {
-        private final int startLine, endLine;
+        private final int startIndex, endIndex;
 
-        public OnBlocksThread(int startLine, int endLine) {
-            this.startLine = startLine;
-            this.endLine = endLine;
+        public OnBlocksThread(int startIndex, int endIndex) {
+            this.startIndex = startIndex;
+            this.endIndex = endIndex;
         }
 
         @Override
         public void run() {
-            for(int i=startLine; i<endLine; ++i) {
-                for(int j=0; j<m; ++j) {
-                    for(int di = 0; di < k; ++di) {
-                        for(int dj = 0; dj < k; ++dj) {
-                            convoluteUnit(i, j, di, dj);
-                        }
-                    }
-                }
+            for(int index=startIndex; index<endIndex; ++index) {
+                int x = linIndexToX(index);
+                int y = linIndexToY(index);
+                convoluteElementInMatrix(x, y);
             }
+        }
+
+        private int linIndexToX(int index) {
+            return index / m;
+        }
+
+        private int linIndexToY(int index) {
+            return index % m;
         }
     }
 }

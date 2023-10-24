@@ -38,11 +38,7 @@ public class ParallelOnLinesConvolutor extends Convolutor {
         public void run() {
             for(int i=startLine; i<endLine; ++i) {
                 for(int j=0; j<m; ++j) {
-                    for(int di = 0; di < k; ++di) {
-                        for(int dj = 0; dj < k; ++dj) {
-                            convoluteUnit(i, j, di, dj);
-                        }
-                    }
+                    convoluteElementInMatrix(i, j);
                 }
             }
         }

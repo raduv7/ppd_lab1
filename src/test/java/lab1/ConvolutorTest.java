@@ -37,7 +37,7 @@ public class ConvolutorTest {
         kHalf = k / 2;
     }
 
-//    @Test
+    @Test
     public void testParallelHashConvolutor() {
         Convolutor convolutor = new ParallelHashConvolutor(1, 8);
         assertConvolution(convolutor.convolute());
@@ -49,7 +49,7 @@ public class ConvolutorTest {
         assertConvolution(convolutor.convolute());
     }
 
-//    @Test
+    @Test
     public void testParallelOnBlocksConvolutor() {
         Convolutor convolutor = new ParallelOnBlocksConvolutor(1, 8);
         assertConvolution(convolutor.convolute());
