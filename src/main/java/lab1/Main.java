@@ -19,8 +19,10 @@ public class Main {
         } else if(strategyNr == 1) {
             convolutor = new ParallelOnLinesConvolutor(inputFileNr, threadsNr);
         } else if(strategyNr == 2) {
-            convolutor = new ParallelOnBlocksConvolutor(inputFileNr, threadsNr);
+            convolutor = new ParallelOnColsConvolutor(inputFileNr, threadsNr);
         } else if(strategyNr == 3) {
+            convolutor = new ParallelOnBlocksConvolutor(inputFileNr, threadsNr);
+        } else if(strategyNr == 4) {
             convolutor = new ParallelHashConvolutor(inputFileNr, threadsNr);
         }
 
@@ -30,6 +32,6 @@ public class Main {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println(((double) startTime - endTime) / 1000);
+        System.out.println(((double) endTime - startTime));
     }
 }

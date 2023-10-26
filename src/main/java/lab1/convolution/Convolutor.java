@@ -1,7 +1,5 @@
 package lab1.convolution;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
